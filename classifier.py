@@ -33,6 +33,26 @@ class BoardType(Enum):
     b3_corner_edge_opposite_corner = 22
     b3_corner_edge_adjacent_edge = 23
     b3_corner_edge_opposite_edge = 24
+    b4_center_square = 25
+    b4_center_z = 26
+    b4_center_t = 27
+    b4_center_edges = 28
+    b4_center_corners = 29
+    b4_edges = 30
+    b4_corners = 31
+    b4_corners_single_edge = 32
+    b4_opposite_adjacent_corner_edges = 33
+    b4_adjacent_corner_edge_adjacent_corner_adjacent_edge = 34
+    b4_edges_3_no_l = 35
+    b4_edges_3_l = 36
+    b4_spread_corner = 37
+    b4_open_z = 38
+    b4_arrow = 39
+    b5_center = 40
+    b5_edges = 41
+    b5_bow = 42
+    b5_v = 43
+    b5_hook = 44
 
 classifications = {}
 
@@ -141,6 +161,19 @@ class Classifier:
             count = count + 1
         return count
 
+    def has_l(self):
+        corners = self.corners()
+        edges = self.edges()
+        if 1 in corners and 1 in edges and 4 in edges:
+            return True
+        if 2 in corners and 1 in edges and 2 in edges:
+            return True
+        if 3 in corners and 2 in edges and 3 in edges:
+            return True
+        if 4 in corners and 3 in edges and 4 in edges:
+            return True
+        return False
+
     def classify(self):
         if self.is_over():
             return BoardType.b_over
@@ -213,4 +246,47 @@ class Classifier:
                 return BoardType.b3_only_corners
             return BoardType.b3_only_edges
 
+        # 4
+        if n == 4:
+            if self.has_center():
+                if self.num_adjacent_corners_edges() == 2:
+                    return BoardType.b4_center_square
+                if self.num_adjacent_corners_edges() == 1:
+                    if self.num_adjacent_edges() == 1:
+                        return BoardType.b4_center_z
+                    return BoardType.b4_center_corners
+                if self.num_adjacent_corners() == 1:
+                    return BoardType.b4_center_t
+                return BoardType.b4_center_edges
+            if self.has_corner():
+                if self.num_adjacent_corners() == 4:
+                    return BoardType.b4_corners
+                if self.num_adjacent_corners() == 2:
+                    return BoardType.b4_corners_single_edge
+                if self.num_adjacent_corners() == 1:
+                    if self.num_adjacent_corners_edges() == 2:
+                        return BoardType.b4_opposite_adjacent_corner_edges
+                    return BoardType.b4_adjacent_corner_edge_adjacent_corner_adjacent_edge
+                if self.num_adjacent_corners_edges() == 2:
+                    if self.num_adjacent_edges() == 2:
+                        return BoardType.b4_edges_3_l
+                    if self.num_adjacent_edges() == 1:
+                        if self.has_l():
+                            return BoardType.b4_arrow
+                        return BoardType.b4_spread_corner
+                    return BoardType.b4_open_z
+                return BoardType.b4_edges_3_no_l
+            return BoardType.b4_edges
+
+        # 5
+        if n == 5:
+            if self.has_center():
+                return BoardType.b5_center
+            if self.num_adjacent_edges() == 4:
+                return BoardType.b5_edges
+            if self.num_adjacent_edges() == 2:
+                if self.num_adjacent_corners() == 1:
+                    return BoardType.b5_v
+                return BoardType.b5_hook
+            return BoardType.b5_bow
         return BoardType.b_over

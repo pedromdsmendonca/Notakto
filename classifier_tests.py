@@ -559,8 +559,283 @@ class TestClassifier(unittest.TestCase):
                                        1, 0, 0]
         self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
 
+    # classify board with 3 cells with corner
+    def test_classifier_3_corner(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       1, 0, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner, self.classifier.classify())
 
+        self.classifier.board.cells = [0, 1, 1,
+                                       0, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner, self.classifier.classify())
 
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 0,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 0, 1,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_corner, self.classifier.classify())
+
+    # classify board with 3 cells with only edges
+    def test_classifier_3_only_edges(self):
+        self.classifier.board.cells = [0, 1, 0,
+                                       1, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_only_edges, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       1, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_only_edges, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 1,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_only_edges, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 1,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_only_edges, self.classifier.classify())
+
+    # classify board with 3 cells with only corners
+    def test_classifier_3_only_corners(self):
+        self.classifier.board.cells = [1, 0, 1,
+                                       0, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_only_corners, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 1,
+                                       0, 0, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_only_corners, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 0,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_only_corners, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 0, 0,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_only_corners, self.classifier.classify())
+
+    # classify board with 3 cells with only adjacent corners and opposite edge
+    def test_classifier_3_adjacent_corners_opposite_edge(self):
+        self.classifier.board.cells = [1, 0, 1,
+                                       0, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_adjacent_corners_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 1,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_adjacent_corners_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 0,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_adjacent_corners_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       1, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_adjacent_corners_opposite_edge, self.classifier.classify())
+
+    # classify board with 3 cells with only adjacent edges and opposite corner
+    def test_classifier_3_adjacent_edges_opposite_corner(self):
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 1,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_adjacent_edges_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       1, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_adjacent_edges_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       1, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_adjacent_edges_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 1,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_adjacent_edges_opposite_corner, self.classifier.classify())
+
+    # classify board with 3 cells with only 1 adjacent corner and edge and adjacent edge
+    def test_classifier_3_corner_edge_adjacent_edge(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       0, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 1,
+                                       1, 0, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 0, 1,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 1,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 0,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 0, 1,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       1, 0, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       1, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_edge, self.classifier.classify())
+
+    # classify board with 3 cells with only 1 adjacent corner and edge and opposite edge
+    def test_classifier_3_corner_edge_opposite_edge(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       0, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 1,
+                                       0, 0, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       1, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 1,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 0,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 0, 0,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 1,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       1, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_edge, self.classifier.classify())
+
+    # classify board with 3 cells with only 1 adjacent corner and edge and adjacent corner
+    def test_classifier_3_corner_edge_adjacent_corner(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       0, 0, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 1,
+                                       0, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 1,
+                                       0, 0, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 0, 1,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 0, 0,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 0,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 0, 0,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 1,
+                                       1, 0, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_adjacent_corner, self.classifier.classify())
+
+    # classify board with 3 cells with only 1 adjacent corner and edge and opposite corner
+    def test_classifier_3_corner_edge_opposite_corner(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       0, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 1,
+                                       0, 0, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 0, 1,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 1,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 0, 0,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 0, 0,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       1, 0, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       1, 0, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_corner_edge_opposite_corner, self.classifier.classify())
 
 
 if __name__ == '__main__':

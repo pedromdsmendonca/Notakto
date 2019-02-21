@@ -24,7 +24,15 @@ class BoardType(Enum):
     b3_center_opposite_corner_edge = 13
     b3_center_corner = 14
     b3_center_edge = 15
-
+    b3_corner = 16
+    b3_only_edges = 17
+    b3_only_corners = 18
+    b3_adjacent_corners_opposite_edge = 19
+    b3_adjacent_edges_opposite_corner = 20
+    b3_corner_edge_adjacent_corner = 21
+    b3_corner_edge_opposite_corner = 22
+    b3_corner_edge_adjacent_edge = 23
+    b3_corner_edge_opposite_edge = 24
 
 classifications = {}
 
@@ -187,5 +195,22 @@ class Classifier:
                         return BoardType.b3_center_corner
                 else:
                     return BoardType.b3_center_edge
+            if self.has_corner():
+                if self.has_edge():
+                    if self.num_adjacent_corners_edges() == 2:
+                        return BoardType.b3_corner
+                    if self.num_adjacent_corners_edges() == 1:
+                        if self.num_adjacent_corners() == 1:
+                            return BoardType.b3_corner_edge_adjacent_corner
+                        if self.num_adjacent_edges() == 1:
+                            return BoardType.b3_corner_edge_adjacent_edge
+                        if len(self.corners()) == 2:
+                            return BoardType.b3_corner_edge_opposite_corner
+                        return BoardType.b3_corner_edge_opposite_edge
+                    if self.num_adjacent_corners() == 1:
+                        return BoardType.b3_adjacent_corners_opposite_edge
+                    return BoardType.b3_adjacent_edges_opposite_corner
+                return BoardType.b3_only_corners
+            return BoardType.b3_only_edges
 
         return BoardType.b_over

@@ -7,6 +7,7 @@ from enum import Enum
 #     D = 4
 
 class BoardType(Enum):
+    b_over = -1
     b0_empty = 0
     b1_corner = 1
     b1_edge = 2
@@ -19,6 +20,10 @@ class BoardType(Enum):
     b2_adjacent_edge = 9
     b2_edge_center = 10
     b2_opposite_edge = 11
+    b3_center_adjacent_corner_edge = 12
+    b3_center_opposite_corner_edge = 13
+    b3_center_corner = 14
+    b3_center_edge = 15
 
 
 classifications = {}
@@ -27,6 +32,15 @@ classifications = {}
 class Classifier:
     def __init__(self, board):
         self.board = board
+
+    def is_over(self):
+        return (self.check_row_complete(0, 1, 2) or self.check_row_complete(3, 4, 5) or
+                self.check_row_complete(6, 7, 8) or self.check_row_complete(0, 3, 6) or
+                self.check_row_complete(1, 4, 7) or self.check_row_complete(2, 5, 8) or
+                self.check_row_complete(0, 4, 8) or self.check_row_complete(2, 4, 6))
+
+    def check_row_complete(self, r1, r2, r3):
+        return self.board.cells[r1] == self.board.cells[r2] == self.board.cells[r3] == 1
 
     def corners(self):
         cells = self.board.cells
@@ -120,6 +134,9 @@ class Classifier:
         return count
 
     def classify(self):
+        if self.is_over():
+            return BoardType.b_over
+
         n = self.count()
 
         # 0
@@ -158,5 +175,17 @@ class Classifier:
                     return BoardType.b2_opposite_edge
 
         # 3
+        if n == 3:
+            if self.has_center():
+                if self.has_corner():
+                    if self.has_edge():
+                        if self.num_adjacent_corners_edges() == 1:
+                            return BoardType.b3_center_adjacent_corner_edge
+                        else:
+                            return BoardType.b3_center_opposite_corner_edge
+                    else:
+                        return BoardType.b3_center_corner
+                else:
+                    return BoardType.b3_center_edge
 
-
+        return BoardType.b_over

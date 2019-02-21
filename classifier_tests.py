@@ -437,6 +437,131 @@ class TestClassifier(unittest.TestCase):
                                        0, 0, 0]
         self.assertEqual(BoardType.b2_opposite_edge, self.classifier.classify())
 
+    # classify boards with 3 cells with center
+    def test_classifier_3_center(self):
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 1, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 1,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_center_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 1, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_center_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       1, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 1,
+                                       0, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 1, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_center_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 0,
+                                       1, 0, 1]
+        self.assertEqual(BoardType.b3_center_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 1, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_center_corner, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 1, 0,
+                                       0, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 1,
+                                       0, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 1, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 1,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 0,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 0,
+                                       1, 1, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 1, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       1, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_adjacent_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 1, 1,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       0, 1, 1,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [1, 0, 0,
+                                       0, 1, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       0, 1, 0,
+                                       0, 1, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 0,
+                                       1, 1, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 0, 1,
+                                       1, 1, 0,
+                                       0, 0, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 1, 0,
+                                       0, 0, 1]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+        self.classifier.board.cells = [0, 1, 0,
+                                       0, 1, 0,
+                                       1, 0, 0]
+        self.assertEqual(BoardType.b3_center_opposite_corner_edge, self.classifier.classify())
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,13 +1,55 @@
 from enum import Enum
 
-# class Fingerprint(Enum):
-#     A = 1
-#     B = 2
-#     C = 3
-#     D = 4
+
+class FingerprintEnum(Enum):
+    I = 0
+    A = 1
+    B = 2
+    C = 3
+    D = 4
+    C2 = 5
+    AD = 6
+    AB = 7
+
+
+class Fingerprint():
+    def __init__(self):
+        self.a = 0
+        self.b = 0
+        self.c = 0
+        self.d = 0
+
+    def set(self, fp):
+        self.a = 0
+        self.b = 0
+        self.c = 0
+        self.d = 0
+
+        if fp == FingerprintEnum.I:
+            pass
+        if fp == FingerprintEnum.A:
+            self.a = 1
+        if fp == FingerprintEnum.B:
+            self.b = 1
+        if fp == FingerprintEnum.C:
+            self.c = 1
+        if fp == FingerprintEnum.D:
+            self.d = 1
+        if fp == FingerprintEnum.AB:
+            self.a = 1
+            self.b = 1
+        if fp == FingerprintEnum.C2:
+            self.c = 2
+
+    def good(self):
+        return ((self.a == 1 and self.b == 0 and self.c == 0 and self.d == 0) or
+                (self.a == 0 and self.b == 2 and self.c == 0 and self.d == 0) or
+                (self.a == 0 and self.b == 1 and self.c == 1 and self.d == 0) or
+                (self.a == 0 and self.b == 0 and self.c == 0 and self.d == 2))
+
 
 class BoardType(Enum):
-    b_over = -1
+    b_identity = -1
     b0_empty = 0
     b1_corner = 1
     b1_edge = 2
@@ -53,6 +95,8 @@ class BoardType(Enum):
     b5_bow = 42
     b5_v = 43
     b5_hook = 44
+    b6 = 45
+
 
 classifications = {}
 
@@ -176,7 +220,7 @@ class Classifier:
 
     def classify(self):
         if self.is_over():
-            return BoardType.b_over
+            return BoardType.b_identity
 
         n = self.count()
 
@@ -289,4 +333,7 @@ class Classifier:
                     return BoardType.b5_v
                 return BoardType.b5_hook
             return BoardType.b5_bow
-        return BoardType.b_over
+
+        if n == 6:
+            return BoardType.b6
+        return BoardType.b_identity

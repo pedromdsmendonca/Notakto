@@ -1011,6 +1011,13 @@ class TestClassifier(unittest.TestCase):
                                        1, 0, 1]
         self.assertEqual(BoardType.b5_bow, self.classifier.classify())
 
+    # classify board with 6 cells
+    def test_classifier_6(self):
+        self.classifier.board.cells = [1, 1, 0,
+                                       1, 0, 1,
+                                       0, 1, 1]
+        self.assertEqual(BoardType.b6, self.classifier.classify())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,6 @@
-import os
 from graphics import *
-
+from classifier import *
+from enum import Enum
 
 class Board:
     def __init__(self):
@@ -143,6 +143,14 @@ def mouse_events_handling():
         y = int((y-100)//100)
         pos = y*3 + x
         if game.play(board, pos):
+            bt1 = Classifier(game.boards[0]).classify()
+            bt2 = Classifier(game.boards[1]).classify()
+            bt3 = Classifier(game.boards[2]).classify()
+            c1 = classifications[bt1]
+
+            fp1.setText(FingerprintEnum(c1).name)
+            fp2.setText(BoardType(bt2).name)
+            fp3.setText(BoardType(bt3).name)
             set_active_player_text()
             win.items[board*9+pos].setText('X')
             win.items[board * 9 + pos].setTextColor('red' if game.active_player == 0 else 'blue')
@@ -194,6 +202,22 @@ text.setSize(10)
 text.setStyle('bold')
 text.setTextColor('green')
 text.draw(win)
+
+fp1 = Text(Point(250, 75), 'fp1')
+fp1.setSize(16)
+fp1.setStyle('bold')
+fp1.setTextColor('red')
+fp1.draw(win)
+fp2 = Text(Point(650, 75), 'fp2')
+fp2.setSize(16)
+fp2.setStyle('bold')
+fp2.setTextColor('red')
+fp2.draw(win)
+fp3 = Text(Point(1050, 75), 'fp3')
+fp3.setSize(16)
+fp3.setStyle('bold')
+fp3.setTextColor('red')
+fp3.draw(win)
 
 create_game_board()
 mouse_events_handling()

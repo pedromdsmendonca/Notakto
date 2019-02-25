@@ -1,5 +1,5 @@
 import unittest
-from classifier import Classifier, BoardType
+from classifier import Classifier, BoardType, Fingerprint, FingerprintEnum, classifications
 
 
 class MockBoard():
@@ -1017,6 +1017,38 @@ class TestClassifier(unittest.TestCase):
                                        1, 0, 1,
                                        0, 1, 1]
         self.assertEqual(BoardType.b6, self.classifier.classify())
+
+
+class TestFingerprint(unittest.TestCase):
+
+    def setUp(self):
+        self.fpa = Fingerprint(fp=FingerprintEnum.A)
+        self.fpb = Fingerprint(fp=FingerprintEnum.B)
+        self.fpc = Fingerprint(fp=FingerprintEnum.C)
+        self.fpd = Fingerprint(fp=FingerprintEnum.D)
+        self.fpab = Fingerprint(fp=FingerprintEnum.AB)
+        self.fpad = Fingerprint(fp=FingerprintEnum.AD)
+        self.fpc2 = Fingerprint(fp=FingerprintEnum.C2)
+
+    def test_ctor_and_quantifier(self):
+        self.assertEqual(True, self.fpa.good())
+        self.assertEqual(False, self.fpb.good())
+        self.assertEqual(False, self.fpc.good())
+        self.assertEqual(False, self.fpd.good())
+        self.assertEqual(False, self.fpab.good())
+        self.assertEqual(False, self.fpad.good())
+        self.assertEqual(True, self.fpc2.good())
+
+    def test_multiply_fingerprints(self):
+        fp = self.fpa.multiply(self.fpa, self.fpb)
+        self.assertEqual(2, fp.a)
+        self.assertEqual(1, fp.b)
+
+    def test_dict(self):
+        self.assertEqual(FingerprintEnum.C, classifications[BoardType.b0_empty])
+        self.assertEqual(FingerprintEnum.I, classifications[BoardType.b1_edge])
+        self.assertEqual(FingerprintEnum.I, classifications[BoardType.b1_corner])
+        self.assertEqual(FingerprintEnum.C2, classifications[BoardType.b1_center])
 
 
 if __name__ == '__main__':

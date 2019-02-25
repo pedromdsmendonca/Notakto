@@ -12,14 +12,15 @@ class FingerprintEnum(Enum):
     AB = 7
 
 
-class Fingerprint():
-    def __init__(self):
-        self.a = 0
-        self.b = 0
-        self.c = 0
-        self.d = 0
+class Fingerprint:
+    def __init__(self, a=0, b=0, c=0, d=0, fp=-1):
+        if fp == -1:
+            self.a = a
+            self.b = b
+            self.c = c
+            self.d = d
+            return
 
-    def set(self, fp):
         self.a = 0
         self.b = 0
         self.c = 0
@@ -45,7 +46,24 @@ class Fingerprint():
         return ((self.a == 1 and self.b == 0 and self.c == 0 and self.d == 0) or
                 (self.a == 0 and self.b == 2 and self.c == 0 and self.d == 0) or
                 (self.a == 0 and self.b == 1 and self.c == 1 and self.d == 0) or
-                (self.a == 0 and self.b == 0 and self.c == 0 and self.d == 2))
+                (self.a == 0 and self.b == 0 and self.c == 2 and self.d == 0))
+
+    def multiply(self, *others):
+        a = self.a
+        b = self.b
+        c = self.c
+        d = self.d
+
+        for other in others:
+            a = a + other.a
+            b = b + other.b
+            c = c + other.c
+            d = d + other.d
+
+        return Fingerprint(a, b, c, d)
+
+    def simplify(self):
+        pass
 
 
 class BoardType(Enum):
@@ -98,7 +116,41 @@ class BoardType(Enum):
     b6 = 45
 
 
-classifications = {}
+classifications = {
+    BoardType.b0_empty: FingerprintEnum.C,
+    BoardType.b1_corner: FingerprintEnum.I,
+    BoardType.b1_edge: FingerprintEnum.I,
+    BoardType.b1_center: FingerprintEnum.C2,
+    BoardType.b2_adjacent_corner_edge: FingerprintEnum.AD,
+    BoardType.b2_adjacent_corner: FingerprintEnum.B,
+    BoardType.b2_corner_center: FingerprintEnum.B,
+    BoardType.b2_opposite_corner_edge: FingerprintEnum.B,
+    BoardType.b2_opposite_corner: FingerprintEnum.A,
+    BoardType.b2_adjacent_edge: FingerprintEnum.A,
+    BoardType.b2_edge_center: FingerprintEnum.B,
+    BoardType.b2_opposite_edge: FingerprintEnum.A,
+    BoardType.b3_corner: FingerprintEnum.B,
+    BoardType.b3_center_adjacent_corner_edge: FingerprintEnum.AB,
+    BoardType.b3_corner_edge_adjacent_edge: FingerprintEnum.D,
+    BoardType.b3_corner_edge_adjacent_corner: FingerprintEnum.A,
+    BoardType.b3_corner_edge_opposite_edge: FingerprintEnum.D,
+    BoardType.b3_corner_edge_opposite_corner: FingerprintEnum.D,
+    BoardType.b3_center_corner: FingerprintEnum.A,
+    BoardType.b3_only_corners: FingerprintEnum.AB,
+    BoardType.b3_adjacent_corners_opposite_edge: FingerprintEnum.A,
+    BoardType.b3_center_opposite_corner_edge: FingerprintEnum.A,
+    BoardType.b3_adjacent_edges_opposite_corner: FingerprintEnum.I,
+    BoardType.b3_center_edge: FingerprintEnum.AB,
+    BoardType.b3_only_edges: FingerprintEnum.B,
+    BoardType.b3_only_edges: FingerprintEnum.B,
+    BoardType.b4_center_square: FingerprintEnum.A,
+    BoardType.b4_edges_3_l: FingerprintEnum.A,
+    BoardType.b4_arrow: FingerprintEnum.A,
+    BoardType.b4_center_z: FingerprintEnum.B,
+    BoardType.b4_center_corners: FingerprintEnum.B,
+    BoardType.b4_adjacent_corner_edge_adjacent_corner_adjacent_edge: FingerprintEnum.B,
+    BoardType.b4_edges_3_no_l: FingerprintEnum.B,
+}
 
 
 class Classifier:

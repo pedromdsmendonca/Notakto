@@ -1050,6 +1050,20 @@ class TestFingerprint(unittest.TestCase):
         self.assertEqual(FingerprintEnum.I, classifications[BoardType.b1_corner])
         self.assertEqual(FingerprintEnum.C2, classifications[BoardType.b1_center])
 
+    def test_equals(self):
+        self.assertEqual(True, self.fpa.equals(self.fpa))
+        self.assertEqual(False, self.fpa.equals(self.fpb))
+
+    def test_is_simplified(self):
+        self.assertEqual(True, self.fpa.is_simplified())
+        self.assertEqual(True, self.fpad.is_simplified())
+        self.assertEqual(False, Fingerprint(1, 2, 3, 4).is_simplified())
+
+    def test_print(self):
+        self.assertEqual('AB', self.fpab.to_string())
+        self.assertEqual('B3CD2', Fingerprint(0, 3, 1, 2).to_string())
+
+
 
 if __name__ == '__main__':
     unittest.main()

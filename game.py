@@ -147,10 +147,12 @@ def mouse_events_handling():
             bt2 = Classifier(game.boards[1]).classify()
             bt3 = Classifier(game.boards[2]).classify()
             c1 = classifications[bt1]
+            c2 = classifications[bt2]
+            c3 = classifications[bt3]
 
             fp1.setText(FingerprintEnum(c1).name)
-            fp2.setText(BoardType(bt2).name)
-            fp3.setText(BoardType(bt3).name)
+            fp2.setText(FingerprintEnum(c2).name)
+            fp3.setText(FingerprintEnum(c3).name)
             set_active_player_text()
             win.items[board*9+pos].setText('X')
             win.items[board * 9 + pos].setTextColor('red' if game.active_player == 0 else 'blue')

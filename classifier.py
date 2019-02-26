@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class FingerprintEnum(Enum):
+    __order__ = 'I A B C D C2 AD AB B2 AB2 AC BC ABC AC2 BC2 ABC2 BD ABD'
     I = 0
     A = 1
     B = 2
@@ -9,7 +10,17 @@ class FingerprintEnum(Enum):
     D = 4
     C2 = 5
     AD = 6
-    AB = 7
+    AB = 7  # end of natural board fingerprints
+    B2 = 8,
+    AB2 = 9,
+    AC = 10,
+    BC = 11,
+    ABC = 12,
+    AC2 = 13,
+    BC2 = 14,
+    ABC2 = 15,
+    BD = 16,
+    ABD = 17
 
 
 class Fingerprint:
@@ -62,8 +73,39 @@ class Fingerprint:
 
         return Fingerprint(a, b, c, d)
 
+    def equals(self, other):
+        return (self.a == other.a and self.b == other.b
+                and self.c == other.c and self.d == other.d)
+
+    def is_simplified(self):
+        for fp in FingerprintEnum:
+            if self.equals(Fingerprint(fp=fp)):
+                return True
+        return False
+
     def simplify(self):
+
         pass
+
+    def to_string(self):
+        out = ''
+        if self.a > 0:
+            out = out + 'A'
+            if self.a > 1:
+                out = out + str(self.a)
+        if self.b > 0:
+            out = out + 'B'
+            if self.b > 1:
+                out = out + str(self.b)
+        if self.c > 0:
+            out = out + 'C'
+            if self.c > 1:
+                out = out + str(self.c)
+        if self.d > 0:
+            out = out + 'D'
+            if self.d > 1:
+                out = out + str(self.d)
+        return out
 
 
 class BoardType(Enum):

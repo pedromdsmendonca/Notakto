@@ -117,6 +117,7 @@ class BoardType(Enum):
 
 
 classifications = {
+    BoardType.b_identity: FingerprintEnum.I,
     BoardType.b0_empty: FingerprintEnum.C,
     BoardType.b1_corner: FingerprintEnum.I,
     BoardType.b1_edge: FingerprintEnum.I,
@@ -142,14 +143,27 @@ classifications = {
     BoardType.b3_adjacent_edges_opposite_corner: FingerprintEnum.I,
     BoardType.b3_center_edge: FingerprintEnum.AB,
     BoardType.b3_only_edges: FingerprintEnum.B,
-    BoardType.b3_only_edges: FingerprintEnum.B,
     BoardType.b4_center_square: FingerprintEnum.A,
     BoardType.b4_edges_3_l: FingerprintEnum.A,
     BoardType.b4_arrow: FingerprintEnum.A,
     BoardType.b4_center_z: FingerprintEnum.B,
     BoardType.b4_center_corners: FingerprintEnum.B,
     BoardType.b4_adjacent_corner_edge_adjacent_corner_adjacent_edge: FingerprintEnum.B,
-    BoardType.b4_edges_3_no_l: FingerprintEnum.B,
+    BoardType.b4_edges_3_no_l: FingerprintEnum.AB,
+    BoardType.b4_spread_corner: FingerprintEnum.AB,
+    BoardType.b4_opposite_adjacent_corner_edges: FingerprintEnum.B,
+    BoardType.b4_corners_single_edge: FingerprintEnum.B,
+    BoardType.b4_open_z: FingerprintEnum.A,
+    BoardType.b4_center_t: FingerprintEnum.B,
+    BoardType.b4_corners: FingerprintEnum.A,
+    BoardType.b4_center_edges: FingerprintEnum.B,
+    BoardType.b4_edges: FingerprintEnum.A,
+    BoardType.b5_edges: FingerprintEnum.B,
+    BoardType.b5_hook: FingerprintEnum.B,
+    BoardType.b5_center: FingerprintEnum.B,
+    BoardType.b5_v: FingerprintEnum.A,
+    BoardType.b5_bow: FingerprintEnum.A,
+    BoardType.b6: FingerprintEnum.A,
 }
 
 

@@ -50,8 +50,43 @@ class Fingerprint:
         if fp == FingerprintEnum.AB:
             self.a = 1
             self.b = 1
+        if fp == FingerprintEnum.AD:
+            self.a = 1
+            self.d = 1
         if fp == FingerprintEnum.C2:
             self.c = 2
+        if fp == FingerprintEnum.B2:
+            self.b = 2
+        if fp == FingerprintEnum.AB2:
+            self.a = 1
+            self.b = 2
+        if fp == FingerprintEnum.AC:
+            self.a = 1
+            self.c = 1
+        if fp == FingerprintEnum.BC:
+            self.b = 1
+            self.c = 1
+        if fp == FingerprintEnum.ABC:
+            self.a = 1
+            self.b = 1
+            self.c = 1
+        if fp == FingerprintEnum.AC2:
+            self.a = 1
+            self.c = 2
+        if fp == FingerprintEnum.BC2:
+            self.b = 1
+            self.c = 2
+        if fp == FingerprintEnum.ABC2:
+            self.a = 1
+            self.b = 1
+            self.c = 2
+        if fp == FingerprintEnum.BD:
+            self.b = 1
+            self.d = 1
+        if fp == FingerprintEnum.ABD:
+            self.a = 1
+            self.b = 1
+            self.d = 1
 
     def good(self):
         return ((self.a == 1 and self.b == 0 and self.c == 0 and self.d == 0) or
@@ -83,8 +118,17 @@ class Fingerprint:
                 return True
         return False
 
-    def simplify(self):
+    def is_natural(self):
+        return (self.equals(Fingerprint(fp=FingerprintEnum.I)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.A)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.B)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.C)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.D)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.AB)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.AD)) or
+            self.equals(Fingerprint(fp=FingerprintEnum.C2)))
 
+    def simplify(self):
         pass
 
     def to_string(self):

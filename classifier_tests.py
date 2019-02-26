@@ -1063,6 +1063,33 @@ class TestFingerprint(unittest.TestCase):
         self.assertEqual('AB', self.fpab.to_string())
         self.assertEqual('B3CD2', Fingerprint(0, 3, 1, 2).to_string())
 
+    def test_simplify(self):
+        fps = []
+        for fp in FingerprintEnum:
+            f = Fingerprint(fp=fp)
+            if f.is_natural():
+                print f.to_string()
+                fps.append(f)
+
+        s = []
+        simp = 0
+        not_simp = 0
+        for fp in fps:
+            for fp2 in fps:
+                for fp3 in fps:
+                    fpn = fp.multiply(fp2, fp3)
+                    if fpn.is_simplified():
+                        simp = simp + 1
+                    else:
+                        not_simp = not_simp + 1
+                        s.append(fpn.to_string())
+
+        s = set(s)
+        print len(s), simp, not_simp
+        print s
+
+
+
 
 
 if __name__ == '__main__':

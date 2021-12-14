@@ -8,11 +8,11 @@ class Board:
         self.over = False
 
     def print_board(self):
-        print "{}|{}|{}".format(self.print_cell(0),self.print_cell(1),self.print_cell(2))
-        print "-----"
-        print "{}|{}|{}".format(self.print_cell(3),self.print_cell(4),self.print_cell(5))
-        print "-----"
-        print "{}|{}|{}".format(self.print_cell(6),self.print_cell(7),self.print_cell(8))
+        print ("{}|{}|{}".format(self.print_cell(0),self.print_cell(1),self.print_cell(2)))
+        print ("-----")
+        print ("{}|{}|{}".format(self.print_cell(3),self.print_cell(4),self.print_cell(5)))
+        print ("-----")
+        print ("{}|{}|{}".format(self.print_cell(6),self.print_cell(7),self.print_cell(8)))
 
     def print_cell(self, index):
         return "X" if self.cells[index] == 1 else " "
@@ -49,7 +49,7 @@ class Game:
     def print_game(self):
         for b in self.boards:
             b.print_board()
-            print "---------------"
+            print ("---------------")
 
     def play(self, board, pos):
         if self.boards[board].try_play(pos):

@@ -1068,7 +1068,7 @@ class TestFingerprint(unittest.TestCase):
         for fp in FingerprintEnum:
             f = Fingerprint(fp=fp)
             if f.is_natural():
-                print f.to_string()
+                print (f.to_string())
                 fps.append(f)
 
         s = []
@@ -1085,8 +1085,8 @@ class TestFingerprint(unittest.TestCase):
                         s.append(fpn.to_string())
 
         s = set(s)
-        print len(s), simp, not_simp
-        print s
+        print (len(s), simp, not_simp)
+        print (s)
 
 
 

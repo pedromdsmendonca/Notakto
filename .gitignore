@@ -84,3 +84,5 @@ fabric.properties
 .idea/vcs.xml
 
 # End of https://www.gitignore.io/api/pycharm
+
+__pycache__/
